@@ -1,3 +1,4 @@
+# HOTFIX: depositar() valida que el monto sea positivo (monto > 0), si no lanza ValueError
 class CuentaBancaria:
     def __init__(self, numero_cuenta: str, titular: str, saldo: float = 0.0):
         self.numero_cuenta = numero_cuenta
