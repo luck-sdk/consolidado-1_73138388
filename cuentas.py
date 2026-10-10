@@ -69,3 +69,9 @@ if __name__ == "__main__":
     print(corriente)
 
 
+
+
+# Instancia de la clase base (prueba)
+cuenta_base = CuentaBancaria("BASE-001", "Oscar")
+cuenta_base.depositar(100)
+print(cuenta_base)
