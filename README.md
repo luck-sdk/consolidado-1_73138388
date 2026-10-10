@@ -1,6 +1,6 @@
 # Consolidado 1 - Construcción de Software (ASUC00947)
 
-- **Nombre completo:** TU NOMBRE COMPLETO
+- **Nombre completo:** Oscar Jhosue Pastor Quispe
 - **Código de alumno:** 73138388
 
 ## Descripción del proyecto
