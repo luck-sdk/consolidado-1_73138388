@@ -1,22 +1,27 @@
-class planeta:
-    def intit (self, nombre,masa,radio,distacia_del_sol,tiene_vida= False ):
-        self.nombre =nombre
-        self.masa=masa
-        self.radio=radio
-        self.distacia_del_sol=distacia_del_sol
-        self.tiene_vida=tiene_vida
+import math
 
-def calcular_densidad(self):
-    pi = 3.1416
-    volumen = (4/3)*pi*(self.radio*self.radio*self.radio)
-    return self.masa/volumen
 
-def es_planeta_exterior(self):
-    if self.distancia_al_sol > 5.2:
-        return True
-    else:
-        return False
+class Planeta:
+    def __init__(self, nombre, masa, radio, distancia_al_sol, tiene_vida=False):
+        self.nombre = nombre
+        self.masa = masa
+        self.radio = radio
+        self.distancia_al_sol = distancia_al_sol
+        self.tiene_vida = tiene_vida
 
-def   str  (self):
-    return "planeta:"+self.nombre+"-distancia al sol:"+str(self.distancia_al_sol)
-p1=planeta("tierra",597200,637100,1.0,True)
+    def calcular_densidad(self):
+        return self.masa / ((4 / 3) * math.pi * self.radio ** 3)
+
+    def es_planeta_exterior(self):
+        return self.distancia_al_sol > 5.2
+
+    def __str__(self):
+        tipo = "exterior" if self.es_planeta_exterior() else "interior"
+        return (f"Planeta {self.nombre} | densidad: {self.calcular_densidad():.2f} kg/m3 "
+                f"| tipo: {tipo}")
+
+
+tierra = Planeta("Tierra", 5.972e24, 6.371e6, 1.0, True)
+jupiter = Planeta("Júpiter", 1.898e27, 6.9911e7, 5.21)
+print(tierra)
+print(jupiter)
