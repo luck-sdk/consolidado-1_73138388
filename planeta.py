@@ -16,3 +16,14 @@ class Planeta:
     def es_planeta_exterior(self):
         """True si la distancia al Sol es mayor a 5.2 UA."""
         return self.distancia_al_sol > 5.2
+
+    def __str__(self):
+        tipo = "exterior" if self.es_planeta_exterior() else "interior"
+        return (f"Planeta {self.nombre} | densidad: {self.calcular_densidad():.2f} kg/m3 "
+                f"| tipo: {tipo}")
+
+
+tierra = Planeta("Tierra", 5.972e24, 6.371e6, 1.0, True)
+jupiter = Planeta("Júpiter", 1.898e27, 6.9911e7, 5.204)
+print(tierra)
+print(jupiter)
