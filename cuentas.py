@@ -1,71 +1,28 @@
 class CuentaBancaria:
-    def __init__(self, numero_cuenta: str, titular: str, saldo: float = 0.0):
+    def __init__(self, numero_cuenta, titular):
         self.numero_cuenta = numero_cuenta
         self.titular = titular
-        self._saldo = saldo
+        self.__saldo = 0.0  # saldo privado, inicia en 0.0
 
-    def depositar(self, monto: float):
-        if monto > 0:
-            self._saldo += monto
-        else:
+    def _actualizar_saldo(self, delta):
+        """Acceso controlado al saldo privado para las clases hijas."""
+        self.__saldo += delta
+
+    def depositar(self, monto):
+        # Validación: el monto debe ser positivo (corregido en hotfix/validar-monto)
+        if monto <= 0:
             raise ValueError("El monto a depositar debe ser mayor a 0")
+        self.__saldo += monto
 
-    def retirar(self, monto: float):
-        if monto > 0 and self._saldo >= monto:
-            self._saldo -= monto
-        else:
-            raise ValueError("Monto inválido o saldo insuficiente")
+    def retirar(self, monto):
+        if monto <= 0:
+            raise ValueError("El monto a retirar debe ser mayor a 0")
+        if monto > self.__saldo:
+            raise ValueError("Saldo insuficiente")
+        self.__saldo -= monto
 
-    def consultar_saldo(self) -> float:
-        return self._saldo
+    def consultar_saldo(self):
+        return self.__saldo
 
-    def __str__(self) -> str:
-        return f"Cuenta: {self.numero_cuenta} | Titular: {self.titular} | Saldo: ${self._saldo:.2f}"
-
-
-class CuentaAhorros(CuentaBancaria):
-    def __init__(self, numero_cuenta: str, titular: str, saldo: float = 0.0, tasa_interes: float = 0.0):
-        super().__init__(numero_cuenta, titular, saldo)
-        self.tasa_interes = tasa_interes
-
-    def calcular_interes(self) -> float:
-        return (self._saldo * self.tasa_interes) / 100
-
-    def __str__(self) -> str:
-        return super().__str__() + f" | Tasa: {self.tasa_interes}% | Interés Anual: ${self.calcular_interes():.2f}"
-
-
-class CuentaCorriente(CuentaBancaria):
-    def __init__(self, numero_cuenta: str, titular: str, saldo: float = 0.0, limite_sobregiro: float = 0.0):
-        super().__init__(numero_cuenta, titular, saldo)
-        self.limite_sobregiro = limite_sobregiro
-
-    def retirar(self, monto: float):
-        # Permite retirar hasta saldo + limite_sobregiro
-        if monto > 0 and (self._saldo + self.limite_sobregiro) >= monto:
-            self._saldo -= monto
-        else:
-            raise ValueError("Excede el límite de sobregiro o monto inválido")
-
-    def permite_sobregiro(self) -> bool:
-        return self._saldo < 0
-
-    def __str__(self) -> str:
-        return super().__str__() + f" | Sobregiro Máx: ${self.limite_sobregiro:.2f}"
-
-
-# Instancias y pruebas requeridas al final del archivo
-if __name__ == "__main__":
-    ahorros = CuentaAhorros("AH-100", "Lucia Perez", 1500.0, 4.5)
-    corriente = CuentaCorriente("CC-200", "Carlos Ruiz", 400.0, 200.0)
-
-    print(ahorros)
-    ahorros.depositar(300)
-    print("Después del depósito en ahorros:", ahorros)
-
-    print("\n" + str(corriente))
-    corriente.retirar(500)  # Entra en sobregiro permitido
-    print("¿Está en sobregiro?", corriente.permite_sobregiro())
-    print(corriente)
-
-
+    def __str__(self):
+        return f"Cuenta {self.numero_cuenta} | Titular: {self.titular} | Saldo: {self.__saldo:.2f}"
