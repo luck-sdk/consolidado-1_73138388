@@ -35,20 +35,3 @@ class Automovil:
         if valor <= 0:
             raise ValueError("La velocidad máxima debe ser mayor a 0")
         self._velocidad_max = valor
-
-    def tiempo_llegada(self, distancia_km):
-        return distancia_km / self._velocidad_max
-
-    def __str__(self):
-        estado = "bajo" if self._nivel_combustible < 20 else "suficiente"
-        return (f"Automovil {self.marca} {self.modelo} | vel. máx: {self._velocidad_max} km/h | "
-                f"combustible: {self._nivel_combustible}% ({estado}) | año: {self._año_fabricacion}")
-
-
-auto = Automovil("Toyota", "Corolla", 180.0, 75.0, 2020)
-print(auto)
-print(f"Tiempo para recorrer 360 km: {auto.tiempo_llegada(360):.2f} h")
-try:
-    auto.año_fabricacion = 1800
-except ValueError as e:
-    print("Error de validación:", e)
