@@ -44,3 +44,14 @@ class Automovil:
         estado = "bajo" if self._nivel_combustible < 20 else "suficiente"
         return (f"Automovil {self.marca} {self.modelo} | vel. máx: {self._velocidad_max} km/h | "
                 f"combustible: {self._nivel_combustible}% ({estado}) | año: {self._año_fabricacion}")
+
+
+auto = Automovil("Toyota", "Corolla", 180.0, 75.0, 2020)
+print(auto)
+print(f"Tiempo para recorrer 360 km: {auto.tiempo_llegada(360):.2f} h")
+auto.nivel_combustible = 50.0
+print("Nuevo combustible:", auto.nivel_combustible)
+try:
+    auto.año_fabricacion = 1800
+except ValueError as e:
+    print("Error de validación:", e)
