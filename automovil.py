@@ -37,6 +37,7 @@ class Automovil:
         self._velocidad_max = valor
 
     def tiempo_llegada(self, distancia_km):
+        """Tiempo en horas = distancia / velocidad_max."""
         return distancia_km / self._velocidad_max
 
     def __str__(self):
@@ -48,6 +49,8 @@ class Automovil:
 auto = Automovil("Toyota", "Corolla", 180.0, 75.0, 2020)
 print(auto)
 print(f"Tiempo para recorrer 360 km: {auto.tiempo_llegada(360):.2f} h")
+auto.nivel_combustible = 50.0
+print("Nuevo combustible:", auto.nivel_combustible)
 try:
     auto.año_fabricacion = 1800
 except ValueError as e:
